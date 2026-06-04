@@ -1,0 +1,51 @@
+{
+  "name": "vocab-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A local desktop vocabulary review tool for personal English words and work phrases.",
+  "type": "module",
+  "main": "app/main/main.js",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "vite build",
+    "build:dict": "node scripts/refresh_ecdict.mjs",
+    "package:mac": "npm run build && electron-builder --mac --dir",
+    "smoke": "electron . --smoke-test",
+    "test": "node --test app/main/scheduling.test.js",
+    "test:scheduling": "node --test app/main/scheduling.test.js",
+    "start": "electron ."
+  },
+  "build": {
+    "appId": "com.local.vocabdesktop",
+    "productName": "Vocabulary",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "app/**/*",
+      "dist/**/*",
+      "index.html",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "app/main/data/**"
+    ],
+    "mac": {
+      "category": "public.app-category.education",
+      "target": [
+        "dir"
+      ]
+    }
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^42.3.3",
+    "electron-builder": "^26.8.1",
+    "vite": "^6.0.5"
+  }
+}

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+release/
+.vite/
+.ecdict-src/
+.local-data/
+.local-data-test/
+*.log
+app-preview.png
+settings-preview.png
+choice-preview.png
+spell-preview.png
+compact-*.png
+.DS_Store

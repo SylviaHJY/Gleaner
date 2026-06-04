@@ -1,0 +1,38 @@
+{
+  "pages": 19,
+  "rawEntries": 525,
+  "deduplicatedEntries": 498,
+  "duplicateTerms": {
+    "incentive": 2,
+    "literature": 2,
+    "concatenation": 2,
+    "rigid": 2,
+    "impeccable": 2,
+    "prominent": 2,
+    "deceptive": 2,
+    "speculative": 2,
+    "practitioner": 2,
+    "vigilant": 3,
+    "theoretically": 2,
+    "theoretical": 2,
+    "exploit": 2,
+    "hallucination": 2,
+    "viable": 2,
+    "deliberate": 2,
+    "audacity": 2,
+    "fabricate": 2,
+    "diluting": 2,
+    "gratification": 2,
+    "incognito": 2,
+    "referee": 2,
+    "synthetic": 2,
+    "neuroplasticity": 2,
+    "hem": 2,
+    "governance": 2
+  },
+  "needsReview": 30,
+  "missingMeaning": [
+    "burglar",
+    "glimmer of hope; glimmer of light"
+  ]
+}
