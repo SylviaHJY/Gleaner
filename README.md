@@ -497,18 +497,6 @@ The bundled database is a trimmed subset, currently about 10MB, with 56k+ rows. 
 
 See `app/main/data/ECDICT-NOTICE.md` for license and rebuild details.
 
-## Future Work
-
-- Bulk import from Obsidian Markdown and CSV through the UI.
-- Better phrase lookup and phrase-level examples.
-- First-class editing of entry status (`pending`, `needs-review`, `ready`, `archived`).
-- Export vocabulary and review history.
-- Stronger example translation workflow.
-- Calendar-style review analytics.
-- Full-screen/meeting detection for automatic pause and catch-up.
-- Better packaging: signed macOS app, installer, and update channel.
-- Optional cloud backup while keeping the default local-first model.
-- More scheduling tests for multi-day simulations with thousands of entries.
 
 ## Privacy
 
