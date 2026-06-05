@@ -752,45 +752,47 @@ function ChoiceCard({ state, entry, busy, onNavigate, onRecord, onReveal }) {
 
   return (
     <article className={classNames("word-card quiz-card", answered && "answered")}>
-      <CardTop state={state} label="选择" icon={<FilePlus2 size={15} />} onNavigate={onNavigate} />
-      <p className="question-label">这个单词是什么意思？</p>
-      <h1 className="word-title">{entry.term}</h1>
-      <div className="quiz-pron">
-        <span className="quiz-subtitle">{firstPhonetic(entry)} · {entry.partOfSpeech || entry.type}</span>
-        <button className="voice-button" onClick={() => playPronunciation(entry, "US")}>
-          <Volume2 size={14} />
-          US
-        </button>
-        <button className="voice-button" onClick={() => playPronunciation(entry, entry.phonetics?.some((item) => item.region === "UK") ? "UK" : "US")}>
-          <Volume2 size={14} />
-          UK
-        </button>
-      </div>
-
-      <section className="options-list">
-        {options.map((option) => (
-          <button
-            key={option.key}
-            className={classNames(
-              "option-button",
-              answered && option.correct && "correct",
-              answer?.selectedKey === option.key && !option.correct && "wrong"
-            )}
-            onClick={() => selectOption(option)}
-            disabled={busy || answered}
-          >
-            <span className="option-key">{option.key}</span>
-            <span className="option-meaning">{option.meaning}</span>
+      <div className="quiz-card-body">
+        <CardTop state={state} label="选择" icon={<FilePlus2 size={15} />} onNavigate={onNavigate} />
+        <p className="question-label">这个单词是什么意思？</p>
+        <h1 className="word-title">{entry.term}</h1>
+        <div className="quiz-pron">
+          <span className="quiz-subtitle">{firstPhonetic(entry)} · {entry.partOfSpeech || entry.type}</span>
+          <button className="voice-button" onClick={() => playPronunciation(entry, "US")}>
+            <Volume2 size={14} />
+            US
           </button>
-        ))}
-      </section>
+          <button className="voice-button" onClick={() => playPronunciation(entry, entry.phonetics?.some((item) => item.region === "UK") ? "UK" : "US")}>
+            <Volume2 size={14} />
+            UK
+          </button>
+        </div>
 
-      {answered ? (
-        <section className={classNames("answer-callout", answer.kind === "correct" ? "success" : "error")}>
-          <strong>{answer.kind === "correct" ? "回答正确" : "正确答案"}</strong>
-          <p>{quizMeaning(entry) || MISSING_MEANING_PLACEHOLDER}</p>
+        <section className="options-list">
+          {options.map((option) => (
+            <button
+              key={option.key}
+              className={classNames(
+                "option-button",
+                answered && option.correct && "correct",
+                answer?.selectedKey === option.key && !option.correct && "wrong"
+              )}
+              onClick={() => selectOption(option)}
+              disabled={busy || answered}
+            >
+              <span className="option-key">{option.key}</span>
+              <span className="option-meaning">{option.meaning}</span>
+            </button>
+          ))}
         </section>
-      ) : null}
+
+        {answered ? (
+          <section className={classNames("answer-callout", answer.kind === "correct" ? "success" : "error")}>
+            <strong>{answer.kind === "correct" ? "回答正确" : "正确答案"}</strong>
+            <p>{quizMeaning(entry) || MISSING_MEANING_PLACEHOLDER}</p>
+          </section>
+        ) : null}
+      </div>
 
       <footer className="card-actions">
         {answered ? (
@@ -849,37 +851,39 @@ function SpellCard({ state, entry, busy, onNavigate, onRecord, onReveal }) {
 
   return (
     <article className={classNames("word-card spell-card", submitted && "answered")}>
-      <CardTop state={state} label="拼写" icon={<PencilLine size={15} />} onNavigate={onNavigate} />
-      <p className="question-label">根据中文释义补全单词</p>
+      <div className="quiz-card-body">
+        <CardTop state={state} label="拼写" icon={<PencilLine size={15} />} onNavigate={onNavigate} />
+        <p className="question-label">根据中文释义补全单词</p>
 
-      <section className="meaning-panel prompt-panel">
-        <p className="meaning-main">{quizMeaning(entry) || entry.userMeaning}</p>
-      </section>
-
-      <div className="spell-pattern">
-        <span>{model.prefix}</span>
-        <span className="spell-blank">{"_".repeat(Math.max(2, model.hidden.length))}</span>
-        <span>{model.suffix}</span>
-      </div>
-
-      <input
-        className={classNames("spell-input", submitted && (correct ? "correct" : "wrong"))}
-        value={value}
-        onChange={(event) => setValue(event.target.value.replace(/[^a-zA-Z]/g, "").slice(0, model.hidden.length))}
-        disabled={submitted || busy}
-        placeholder={`填写 ${model.hidden.length} 个字母`}
-      />
-      <p className="hint-line">提示：保留首尾字母，隐藏中间部分字母。</p>
-
-      {submitted ? (
-        <section className={classNames("answer-callout", correct ? "success" : "error")}>
-          <strong>{correct ? "拼写正确" : "正确拼写"}</strong>
-          <p>
-            {entry.term} · {firstPhonetic(entry)}
-          </p>
-          {entry.examples?.[0]?.en ? <p className="answer-example">{entry.examples[0].en}</p> : null}
+        <section className="meaning-panel prompt-panel">
+          <p className="meaning-main">{quizMeaning(entry) || entry.userMeaning}</p>
         </section>
-      ) : null}
+
+        <div className="spell-pattern">
+          <span>{model.prefix}</span>
+          <span className="spell-blank">{"_".repeat(Math.max(2, model.hidden.length))}</span>
+          <span>{model.suffix}</span>
+        </div>
+
+        <input
+          className={classNames("spell-input", submitted && (correct ? "correct" : "wrong"))}
+          value={value}
+          onChange={(event) => setValue(event.target.value.replace(/[^a-zA-Z]/g, "").slice(0, model.hidden.length))}
+          disabled={submitted || busy}
+          placeholder={`填写 ${model.hidden.length} 个字母`}
+        />
+        <p className="hint-line">提示：保留首尾字母，隐藏中间部分字母。</p>
+
+        {submitted ? (
+          <section className={classNames("answer-callout", correct ? "success" : "error")}>
+            <strong>{correct ? "拼写正确" : "正确拼写"}</strong>
+            <p>
+              {entry.term} · {firstPhonetic(entry)}
+            </p>
+            {entry.examples?.[0]?.en ? <p className="answer-example">{entry.examples[0].en}</p> : null}
+          </section>
+        ) : null}
+      </div>
 
       <footer className="card-actions with-icon">
         <button className="icon-only-button" onClick={() => playPronunciation(entry, "US")}>
