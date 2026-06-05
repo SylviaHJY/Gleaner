@@ -468,6 +468,13 @@ button:disabled {
   margin-top: 4px;
 }
 
+.quiz-card,
+.spell-card {
+  max-height: calc(100vh - 16px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
 .question-label {
   margin: 0 0 10px;
   color: var(--muted);
@@ -529,7 +536,7 @@ button:disabled {
   word-break: break-word;
 }
 
-.option-button span {
+.option-button .option-key {
   width: 28px;
   height: 28px;
   display: grid;
@@ -541,13 +548,21 @@ button:disabled {
   font-weight: 850;
 }
 
+.option-button .option-meaning {
+  min-width: 0;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 .option-button.correct {
   border-color: #99f6e4;
   background: var(--green-soft);
   color: #115e59;
 }
 
-.option-button.correct span {
+.option-button.correct .option-key {
   background: var(--green);
   color: #fff;
 }
@@ -558,7 +573,7 @@ button:disabled {
   color: var(--red);
 }
 
-.option-button.wrong span {
+.option-button.wrong .option-key {
   background: var(--red);
   color: #fff;
 }
@@ -605,6 +620,13 @@ button:disabled {
   font-weight: 680;
   overflow-wrap: anywhere;
   word-break: break-word;
+}
+
+.quiz-card .answer-callout p {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .answer-callout.success p {

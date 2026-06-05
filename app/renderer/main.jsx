@@ -716,7 +716,7 @@ function WordCard({ state, entry, busy, completionOnly = false, isReview = false
   );
 }
 
-function ChoiceCard({ state, entry, busy, onComplete, onNavigate, onRecord, onReveal }) {
+function ChoiceCard({ state, entry, busy, onNavigate, onRecord, onReveal }) {
   const [answer, setAnswer] = useState(null);
   const [options, setOptions] = useState(() => makeChoiceOptions(entry, state.entries));
 
@@ -779,8 +779,8 @@ function ChoiceCard({ state, entry, busy, onComplete, onNavigate, onRecord, onRe
             onClick={() => selectOption(option)}
             disabled={busy || answered}
           >
-            <span>{option.key}</span>
-            {option.meaning}
+            <span className="option-key">{option.key}</span>
+            <span className="option-meaning">{option.meaning}</span>
           </button>
         ))}
       </section>
@@ -789,20 +789,14 @@ function ChoiceCard({ state, entry, busy, onComplete, onNavigate, onRecord, onRe
         <section className={classNames("answer-callout", answer.kind === "correct" ? "success" : "error")}>
           <strong>{answer.kind === "correct" ? "回答正确" : "正确答案"}</strong>
           <p>{quizMeaning(entry) || MISSING_MEANING_PLACEHOLDER}</p>
-          {hasDistinctReference(entry) ? <p className="answer-your">你的释义：{entry.userMeaning}</p> : null}
         </section>
       ) : null}
 
       <footer className="card-actions">
         {answered ? (
-          <>
-            <button className="secondary-button" disabled={busy} onClick={() => onComplete(entry.id)}>
-              继续背词
-            </button>
-            <button className="primary-button" disabled={busy} onClick={() => onReveal(entry.id)}>
-              看完整卡片
-            </button>
-          </>
+          <button className="primary-button full-width" disabled={busy} onClick={() => onReveal(entry.id)}>
+            看完整卡片
+          </button>
         ) : (
           <>
             <button className="secondary-button" disabled={busy} onClick={forget}>
@@ -818,7 +812,7 @@ function ChoiceCard({ state, entry, busy, onComplete, onNavigate, onRecord, onRe
   );
 }
 
-function SpellCard({ state, entry, busy, onComplete, onNavigate, onRecord, onReveal }) {
+function SpellCard({ state, entry, busy, onNavigate, onRecord, onReveal }) {
   const model = useMemo(() => makeSpellModel(entry.term), [entry.term]);
   const [value, setValue] = useState("");
   const [answer, setAnswer] = useState(null);
@@ -891,8 +885,8 @@ function SpellCard({ state, entry, busy, onComplete, onNavigate, onRecord, onRev
         <button className="icon-only-button" onClick={() => playPronunciation(entry, "US")}>
           <Headphones size={17} />
         </button>
-        <button className="secondary-button" disabled={busy} onClick={submitted ? () => onComplete(entry.id) : forget}>
-          {submitted ? "继续背词" : "不记得"}
+        <button className="secondary-button" disabled={busy || submitted} onClick={forget}>
+          不记得
         </button>
         <button className="primary-button" disabled={busy || (!submitted && !value)} onClick={submitted ? () => onReveal(entry.id) : submit}>
           {submitted ? "看完整卡片" : "提交"}
